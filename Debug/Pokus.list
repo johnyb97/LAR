@@ -23,25 +23,25 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
   9 .ARM.attributes 00000028  00000000  00000000  00020004  2**0
                   CONTENTS, READONLY
- 10 .debug_info   0000f19f  00000000  00000000  0002002c  2**0
+ 10 .debug_info   0000f1cd  00000000  00000000  0002002c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_abbrev 000023e4  00000000  00000000  0002f1cb  2**0
+ 11 .debug_abbrev 000023dd  00000000  00000000  0002f1f9  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_loc    00007f11  00000000  00000000  000315af  2**0
+ 12 .debug_loc    00007f11  00000000  00000000  000315d6  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_aranges 00000c40  00000000  00000000  000394c0  2**3
+ 13 .debug_aranges 00000c40  00000000  00000000  000394e8  2**3
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_ranges 00000ba8  00000000  00000000  0003a100  2**3
+ 14 .debug_ranges 00000ba8  00000000  00000000  0003a128  2**3
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_macro  00014575  00000000  00000000  0003aca8  2**0
+ 15 .debug_macro  0001457f  00000000  00000000  0003acd0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 16 .debug_line   00009388  00000000  00000000  0004f21d  2**0
+ 16 .debug_line   00009398  00000000  00000000  0004f24f  2**0
                   CONTENTS, READONLY, DEBUGGING
- 17 .debug_str    0007e05a  00000000  00000000  000585a5  2**0
+ 17 .debug_str    0007e056  00000000  00000000  000585e7  2**0
                   CONTENTS, READONLY, DEBUGGING
- 18 .comment      0000007c  00000000  00000000  000d65ff  2**0
+ 18 .comment      0000007c  00000000  00000000  000d663d  2**0
                   CONTENTS, READONLY
- 19 .debug_frame  00001fb0  00000000  00000000  000d667c  2**2
+ 19 .debug_frame  00001fb0  00000000  00000000  000d66bc  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -8515,24 +8515,24 @@ static void MX_GPIO_Init(void)
  8003508:	f000 f97c 	bl	8003804 <init_PID_ultrazvuk>
   start_encoder();
  800350c:	f000 f9ae 	bl	800386c <start_encoder>
-	  Travel_rovne_2(&htim3,1,1000);
+	  Travel_rovne(&htim3,1,1000);
  8003510:	4d0a      	ldr	r5, [pc, #40]	; (800353c <main+0x64>)
  8003512:	22fa      	movs	r2, #250	; 0xfa
  8003514:	0092      	lsls	r2, r2, #2
  8003516:	2101      	movs	r1, #1
  8003518:	0028      	movs	r0, r5
- 800351a:	f000 f9cd 	bl	80038b8 <Travel_rovne_2>
+ 800351a:	f000 f9cd 	bl	80038b8 <Travel_rovne>
 	  HAL_Delay(500);
  800351e:	24fa      	movs	r4, #250	; 0xfa
  8003520:	0064      	lsls	r4, r4, #1
  8003522:	0020      	movs	r0, r4
  8003524:	f7fd feb0 	bl	8001288 <HAL_Delay>
-	  Travel_turn_2(&htim3,90,400);
+	  Travel_turn(&htim3,90,400);
  8003528:	22c8      	movs	r2, #200	; 0xc8
  800352a:	0052      	lsls	r2, r2, #1
  800352c:	215a      	movs	r1, #90	; 0x5a
  800352e:	0028      	movs	r0, r5
- 8003530:	f000 fa3a 	bl	80039a8 <Travel_turn_2>
+ 8003530:	f000 fa3a 	bl	80039a8 <Travel_turn>
 	  HAL_Delay(500);
  8003534:	0020      	movs	r0, r4
  8003536:	f7fd fea7 	bl	8001288 <HAL_Delay>
@@ -9034,7 +9034,7 @@ void reset_distance(void){
  8003890:	20000088 	.word	0x20000088
 
 08003894 <distance_traveled>:
-int distance_traveled(wheel){
+int distance_traveled(int wheel){
 	if (wheel ==1){
  8003894:	2801      	cmp	r0, #1
  8003896:	d004      	beq.n	80038a2 <distance_traveled+0xe>
@@ -9062,91 +9062,91 @@ int distance_traveled(wheel){
  80038b0:	20000074 	.word	0x20000074
  80038b4:	20000088 	.word	0x20000088
 
-080038b8 <Travel_rovne_2>:
-int Travel_rovne_2(TIM_HandleTypeDef *htim,int vzdalenost,int power){
+080038b8 <Travel_rovne>:
+int Travel_rovne(TIM_HandleTypeDef *htim,int vzdalenost,int power){
  80038b8:	b570      	push	{r4, r5, r6, lr}
  80038ba:	0004      	movs	r4, r0
  80038bc:	000e      	movs	r6, r1
  80038be:	0015      	movs	r5, r2
 	  rigth = power; //speed of rigth engine
- 80038c0:	4b31      	ldr	r3, [pc, #196]	; (8003988 <Travel_rovne_2+0xd0>)
+ 80038c0:	4b31      	ldr	r3, [pc, #196]	; (8003988 <Travel_rovne+0xd0>)
  80038c2:	601a      	str	r2, [r3, #0]
 	  left = power; //speed of left engine
- 80038c4:	4b31      	ldr	r3, [pc, #196]	; (800398c <Travel_rovne_2+0xd4>)
+ 80038c4:	4b31      	ldr	r3, [pc, #196]	; (800398c <Travel_rovne+0xd4>)
  80038c6:	601a      	str	r2, [r3, #0]
 	  set_speed(htim,rigth,left);
  80038c8:	0011      	movs	r1, r2
  80038ca:	f7ff fec7 	bl	800365c <set_speed>
 	  maxdistance =1587*vzdalenost;
- 80038ce:	4930      	ldr	r1, [pc, #192]	; (8003990 <Travel_rovne_2+0xd8>)
+ 80038ce:	4930      	ldr	r1, [pc, #192]	; (8003990 <Travel_rovne+0xd8>)
  80038d0:	4371      	muls	r1, r6
- 80038d2:	4b30      	ldr	r3, [pc, #192]	; (8003994 <Travel_rovne_2+0xdc>)
+ 80038d2:	4b30      	ldr	r3, [pc, #192]	; (8003994 <Travel_rovne+0xdc>)
  80038d4:	6019      	str	r1, [r3, #0]
- 80038d6:	e018      	b.n	800390a <Travel_rovne_2+0x52>
+ 80038d6:	e018      	b.n	800390a <Travel_rovne+0x52>
 		  	 				 rigth = 0; //speed of rigth engine
  80038d8:	2300      	movs	r3, #0
- 80038da:	4a2b      	ldr	r2, [pc, #172]	; (8003988 <Travel_rovne_2+0xd0>)
+ 80038da:	4a2b      	ldr	r2, [pc, #172]	; (8003988 <Travel_rovne+0xd0>)
  80038dc:	6013      	str	r3, [r2, #0]
 		  	 				 left = 0; //speed of left engine
- 80038de:	4a2b      	ldr	r2, [pc, #172]	; (800398c <Travel_rovne_2+0xd4>)
+ 80038de:	4a2b      	ldr	r2, [pc, #172]	; (800398c <Travel_rovne+0xd4>)
  80038e0:	6013      	str	r3, [r2, #0]
 		  	 				 logic=1;
  80038e2:	2201      	movs	r2, #1
- 80038e4:	4b2c      	ldr	r3, [pc, #176]	; (8003998 <Travel_rovne_2+0xe0>)
+ 80038e4:	4b2c      	ldr	r3, [pc, #176]	; (8003998 <Travel_rovne+0xe0>)
  80038e6:	601a      	str	r2, [r3, #0]
 		  	 				 set_speed(htim,rigth,left);
  80038e8:	2200      	movs	r2, #0
  80038ea:	2100      	movs	r1, #0
  80038ec:	0020      	movs	r0, r4
  80038ee:	f7ff feb5 	bl	800365c <set_speed>
- 80038f2:	e011      	b.n	8003918 <Travel_rovne_2+0x60>
+ 80038f2:	e011      	b.n	8003918 <Travel_rovne+0x60>
 		 if (total_stop==1)
- 80038f4:	4b29      	ldr	r3, [pc, #164]	; (800399c <Travel_rovne_2+0xe4>)
+ 80038f4:	4b29      	ldr	r3, [pc, #164]	; (800399c <Travel_rovne+0xe4>)
  80038f6:	781b      	ldrb	r3, [r3, #0]
  80038f8:	2b01      	cmp	r3, #1
- 80038fa:	d01e      	beq.n	800393a <Travel_rovne_2+0x82>
+ 80038fa:	d01e      	beq.n	800393a <Travel_rovne+0x82>
 		if (distance_traveled(1)>maxdistance)
  80038fc:	2001      	movs	r0, #1
  80038fe:	f7ff ffc9 	bl	8003894 <distance_traveled>
- 8003902:	4b24      	ldr	r3, [pc, #144]	; (8003994 <Travel_rovne_2+0xdc>)
+ 8003902:	4b24      	ldr	r3, [pc, #144]	; (8003994 <Travel_rovne+0xdc>)
  8003904:	681b      	ldr	r3, [r3, #0]
  8003906:	4298      	cmp	r0, r3
- 8003908:	dc2a      	bgt.n	8003960 <Travel_rovne_2+0xa8>
+ 8003908:	dc2a      	bgt.n	8003960 <Travel_rovne+0xa8>
 		 PID_regularor(htim); //call PID regulator with its own frequency 100Hz
  800390a:	0020      	movs	r0, r4
  800390c:	f7ff febe 	bl	800368c <PID_regularor>
 		  if (stop==1)
- 8003910:	4b23      	ldr	r3, [pc, #140]	; (80039a0 <Travel_rovne_2+0xe8>)
+ 8003910:	4b23      	ldr	r3, [pc, #140]	; (80039a0 <Travel_rovne+0xe8>)
  8003912:	781b      	ldrb	r3, [r3, #0]
  8003914:	2b01      	cmp	r3, #1
- 8003916:	d0df      	beq.n	80038d8 <Travel_rovne_2+0x20>
+ 8003916:	d0df      	beq.n	80038d8 <Travel_rovne+0x20>
 		  	 if (stop==2)
- 8003918:	4b21      	ldr	r3, [pc, #132]	; (80039a0 <Travel_rovne_2+0xe8>)
+ 8003918:	4b21      	ldr	r3, [pc, #132]	; (80039a0 <Travel_rovne+0xe8>)
  800391a:	781b      	ldrb	r3, [r3, #0]
  800391c:	2b02      	cmp	r3, #2
- 800391e:	d1e9      	bne.n	80038f4 <Travel_rovne_2+0x3c>
+ 800391e:	d1e9      	bne.n	80038f4 <Travel_rovne+0x3c>
 		  	 				  rigth = power; //speed of rigth engine
- 8003920:	4b19      	ldr	r3, [pc, #100]	; (8003988 <Travel_rovne_2+0xd0>)
+ 8003920:	4b19      	ldr	r3, [pc, #100]	; (8003988 <Travel_rovne+0xd0>)
  8003922:	601d      	str	r5, [r3, #0]
 		  	 				  left = power; //speed of left engine
- 8003924:	4b19      	ldr	r3, [pc, #100]	; (800398c <Travel_rovne_2+0xd4>)
+ 8003924:	4b19      	ldr	r3, [pc, #100]	; (800398c <Travel_rovne+0xd4>)
  8003926:	601d      	str	r5, [r3, #0]
 		  	 				  logic=0;
  8003928:	2200      	movs	r2, #0
- 800392a:	4b1b      	ldr	r3, [pc, #108]	; (8003998 <Travel_rovne_2+0xe0>)
+ 800392a:	4b1b      	ldr	r3, [pc, #108]	; (8003998 <Travel_rovne+0xe0>)
  800392c:	601a      	str	r2, [r3, #0]
 		  	 				set_speed(htim,rigth,left);
  800392e:	002a      	movs	r2, r5
  8003930:	0029      	movs	r1, r5
  8003932:	0020      	movs	r0, r4
  8003934:	f7ff fe92 	bl	800365c <set_speed>
- 8003938:	e7dc      	b.n	80038f4 <Travel_rovne_2+0x3c>
+ 8003938:	e7dc      	b.n	80038f4 <Travel_rovne+0x3c>
 			rigth = 0; //speed of rigth engine
  800393a:	2300      	movs	r3, #0
- 800393c:	4a12      	ldr	r2, [pc, #72]	; (8003988 <Travel_rovne_2+0xd0>)
+ 800393c:	4a12      	ldr	r2, [pc, #72]	; (8003988 <Travel_rovne+0xd0>)
  800393e:	6013      	str	r3, [r2, #0]
 			left = 0; //speed of left engine
- 8003940:	4a12      	ldr	r2, [pc, #72]	; (800398c <Travel_rovne_2+0xd4>)
+ 8003940:	4a12      	ldr	r2, [pc, #72]	; (800398c <Travel_rovne+0xd4>)
  8003942:	6013      	str	r3, [r2, #0]
 			 				  set_speed(htim,rigth,left);
  8003944:	2200      	movs	r2, #0
@@ -9156,7 +9156,7 @@ int Travel_rovne_2(TIM_HandleTypeDef *htim,int vzdalenost,int power){
 			 				  distance=distance_traveled(1);
  800394e:	2001      	movs	r0, #1
  8003950:	f7ff ffa0 	bl	8003894 <distance_traveled>
- 8003954:	4c13      	ldr	r4, [pc, #76]	; (80039a4 <Travel_rovne_2+0xec>)
+ 8003954:	4c13      	ldr	r4, [pc, #76]	; (80039a4 <Travel_rovne+0xec>)
  8003956:	6020      	str	r0, [r4, #0]
 			 				  			reset_distance();
  8003958:	f7ff ff92 	bl	8003880 <reset_distance>
@@ -9166,10 +9166,10 @@ int Travel_rovne_2(TIM_HandleTypeDef *htim,int vzdalenost,int power){
  800395e:	bd70      	pop	{r4, r5, r6, pc}
 				 rigth = 0; //speed of rigth engine
  8003960:	2300      	movs	r3, #0
- 8003962:	4a09      	ldr	r2, [pc, #36]	; (8003988 <Travel_rovne_2+0xd0>)
+ 8003962:	4a09      	ldr	r2, [pc, #36]	; (8003988 <Travel_rovne+0xd0>)
  8003964:	6013      	str	r3, [r2, #0]
 				 left = 0; //speed of left engine
- 8003966:	4a09      	ldr	r2, [pc, #36]	; (800398c <Travel_rovne_2+0xd4>)
+ 8003966:	4a09      	ldr	r2, [pc, #36]	; (800398c <Travel_rovne+0xd4>)
  8003968:	6013      	str	r3, [r2, #0]
 				  set_speed(htim,rigth,left);
  800396a:	2200      	movs	r2, #0
@@ -9179,13 +9179,13 @@ int Travel_rovne_2(TIM_HandleTypeDef *htim,int vzdalenost,int power){
 				  distance=distance_traveled(1);
  8003974:	2001      	movs	r0, #1
  8003976:	f7ff ff8d 	bl	8003894 <distance_traveled>
- 800397a:	4c0a      	ldr	r4, [pc, #40]	; (80039a4 <Travel_rovne_2+0xec>)
+ 800397a:	4c0a      	ldr	r4, [pc, #40]	; (80039a4 <Travel_rovne+0xec>)
  800397c:	6020      	str	r0, [r4, #0]
 				  			 reset_distance();
  800397e:	f7ff ff7f 	bl	8003880 <reset_distance>
 				  			return distance;
  8003982:	6820      	ldr	r0, [r4, #0]
- 8003984:	e7eb      	b.n	800395e <Travel_rovne_2+0xa6>
+ 8003984:	e7eb      	b.n	800395e <Travel_rovne+0xa6>
  8003986:	46c0      	nop			; (mov r8, r8)
  8003988:	200002c8 	.word	0x200002c8
  800398c:	200002c4 	.word	0x200002c4
@@ -9196,18 +9196,18 @@ int Travel_rovne_2(TIM_HandleTypeDef *htim,int vzdalenost,int power){
  80039a0:	200002d8 	.word	0x200002d8
  80039a4:	200002c0 	.word	0x200002c0
 
-080039a8 <Travel_turn_2>:
-int Travel_turn_2(TIM_HandleTypeDef *htim2,int uhel,int power){
+080039a8 <Travel_turn>:
+int Travel_turn(TIM_HandleTypeDef *htim2,int uhel,int power){
  80039a8:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
  80039aa:	0004      	movs	r4, r0
  80039ac:	000f      	movs	r7, r1
  80039ae:	0015      	movs	r5, r2
 	rigth = power; //speed of rigth engine
- 80039b0:	4b34      	ldr	r3, [pc, #208]	; (8003a84 <Travel_turn_2+0xdc>)
+ 80039b0:	4b34      	ldr	r3, [pc, #208]	; (8003a84 <Travel_turn+0xdc>)
  80039b2:	601a      	str	r2, [r3, #0]
 	left =-power; //speed of left engine
  80039b4:	4256      	negs	r6, r2
- 80039b6:	4b34      	ldr	r3, [pc, #208]	; (8003a88 <Travel_turn_2+0xe0>)
+ 80039b6:	4b34      	ldr	r3, [pc, #208]	; (8003a88 <Travel_turn+0xe0>)
  80039b8:	601e      	str	r6, [r3, #0]
 	set_speed(htim2,rigth,left);
  80039ba:	0032      	movs	r2, r6
@@ -9219,76 +9219,76 @@ int Travel_turn_2(TIM_HandleTypeDef *htim2,int uhel,int power){
  80039c6:	4378      	muls	r0, r7
  80039c8:	215a      	movs	r1, #90	; 0x5a
  80039ca:	f7fc fc27 	bl	800021c <__divsi3>
- 80039ce:	4b2f      	ldr	r3, [pc, #188]	; (8003a8c <Travel_turn_2+0xe4>)
+ 80039ce:	4b2f      	ldr	r3, [pc, #188]	; (8003a8c <Travel_turn+0xe4>)
  80039d0:	6018      	str	r0, [r3, #0]
- 80039d2:	e01a      	b.n	8003a0a <Travel_turn_2+0x62>
+ 80039d2:	e01a      	b.n	8003a0a <Travel_turn+0x62>
 		  	 rigth = 0; //speed of rigth engine
  80039d4:	2300      	movs	r3, #0
- 80039d6:	4a2b      	ldr	r2, [pc, #172]	; (8003a84 <Travel_turn_2+0xdc>)
+ 80039d6:	4a2b      	ldr	r2, [pc, #172]	; (8003a84 <Travel_turn+0xdc>)
  80039d8:	6013      	str	r3, [r2, #0]
 		  	 left = 0; //speed of left engine
- 80039da:	4a2b      	ldr	r2, [pc, #172]	; (8003a88 <Travel_turn_2+0xe0>)
+ 80039da:	4a2b      	ldr	r2, [pc, #172]	; (8003a88 <Travel_turn+0xe0>)
  80039dc:	6013      	str	r3, [r2, #0]
 		  	 logic=1;
  80039de:	2201      	movs	r2, #1
- 80039e0:	4b2b      	ldr	r3, [pc, #172]	; (8003a90 <Travel_turn_2+0xe8>)
+ 80039e0:	4b2b      	ldr	r3, [pc, #172]	; (8003a90 <Travel_turn+0xe8>)
  80039e2:	601a      	str	r2, [r3, #0]
 		  	 set_speed(htim2,rigth,left);
  80039e4:	2200      	movs	r2, #0
  80039e6:	2100      	movs	r1, #0
  80039e8:	0020      	movs	r0, r4
  80039ea:	f7ff fe37 	bl	800365c <set_speed>
- 80039ee:	e010      	b.n	8003a12 <Travel_turn_2+0x6a>
+ 80039ee:	e010      	b.n	8003a12 <Travel_turn+0x6a>
 		 if (total_stop==1)
- 80039f0:	4b28      	ldr	r3, [pc, #160]	; (8003a94 <Travel_turn_2+0xec>)
+ 80039f0:	4b28      	ldr	r3, [pc, #160]	; (8003a94 <Travel_turn+0xec>)
  80039f2:	781b      	ldrb	r3, [r3, #0]
  80039f4:	2b01      	cmp	r3, #1
- 80039f6:	d01f      	beq.n	8003a38 <Travel_turn_2+0x90>
+ 80039f6:	d01f      	beq.n	8003a38 <Travel_turn+0x90>
 		 currentdistance = distance_traveled(1);
  80039f8:	2001      	movs	r0, #1
  80039fa:	f7ff ff4b 	bl	8003894 <distance_traveled>
- 80039fe:	4b26      	ldr	r3, [pc, #152]	; (8003a98 <Travel_turn_2+0xf0>)
+ 80039fe:	4b26      	ldr	r3, [pc, #152]	; (8003a98 <Travel_turn+0xf0>)
  8003a00:	6018      	str	r0, [r3, #0]
 		 if (currentdistance>maxdistance)
- 8003a02:	4b22      	ldr	r3, [pc, #136]	; (8003a8c <Travel_turn_2+0xe4>)
+ 8003a02:	4b22      	ldr	r3, [pc, #136]	; (8003a8c <Travel_turn+0xe4>)
  8003a04:	681b      	ldr	r3, [r3, #0]
  8003a06:	4298      	cmp	r0, r3
- 8003a08:	dc29      	bgt.n	8003a5e <Travel_turn_2+0xb6>
+ 8003a08:	dc29      	bgt.n	8003a5e <Travel_turn+0xb6>
 		if (stop==1)
- 8003a0a:	4b24      	ldr	r3, [pc, #144]	; (8003a9c <Travel_turn_2+0xf4>)
+ 8003a0a:	4b24      	ldr	r3, [pc, #144]	; (8003a9c <Travel_turn+0xf4>)
  8003a0c:	781b      	ldrb	r3, [r3, #0]
  8003a0e:	2b01      	cmp	r3, #1
- 8003a10:	d0e0      	beq.n	80039d4 <Travel_turn_2+0x2c>
+ 8003a10:	d0e0      	beq.n	80039d4 <Travel_turn+0x2c>
 		if (stop==2)
- 8003a12:	4b22      	ldr	r3, [pc, #136]	; (8003a9c <Travel_turn_2+0xf4>)
+ 8003a12:	4b22      	ldr	r3, [pc, #136]	; (8003a9c <Travel_turn+0xf4>)
  8003a14:	781b      	ldrb	r3, [r3, #0]
  8003a16:	2b02      	cmp	r3, #2
- 8003a18:	d1ea      	bne.n	80039f0 <Travel_turn_2+0x48>
+ 8003a18:	d1ea      	bne.n	80039f0 <Travel_turn+0x48>
 		  	 rigth = power; //speed of rigth engine
- 8003a1a:	4b1a      	ldr	r3, [pc, #104]	; (8003a84 <Travel_turn_2+0xdc>)
+ 8003a1a:	4b1a      	ldr	r3, [pc, #104]	; (8003a84 <Travel_turn+0xdc>)
  8003a1c:	601d      	str	r5, [r3, #0]
 		  	 left = -power; //speed of left engine
- 8003a1e:	4b1a      	ldr	r3, [pc, #104]	; (8003a88 <Travel_turn_2+0xe0>)
+ 8003a1e:	4b1a      	ldr	r3, [pc, #104]	; (8003a88 <Travel_turn+0xe0>)
  8003a20:	601e      	str	r6, [r3, #0]
 		  	 logic=0;
  8003a22:	2300      	movs	r3, #0
- 8003a24:	4a1a      	ldr	r2, [pc, #104]	; (8003a90 <Travel_turn_2+0xe8>)
+ 8003a24:	4a1a      	ldr	r2, [pc, #104]	; (8003a90 <Travel_turn+0xe8>)
  8003a26:	6013      	str	r3, [r2, #0]
 		  	 stop = 0;
- 8003a28:	4a1c      	ldr	r2, [pc, #112]	; (8003a9c <Travel_turn_2+0xf4>)
+ 8003a28:	4a1c      	ldr	r2, [pc, #112]	; (8003a9c <Travel_turn+0xf4>)
  8003a2a:	7013      	strb	r3, [r2, #0]
 		  	 set_speed(htim2,rigth,left);
  8003a2c:	0032      	movs	r2, r6
  8003a2e:	0029      	movs	r1, r5
  8003a30:	0020      	movs	r0, r4
  8003a32:	f7ff fe13 	bl	800365c <set_speed>
- 8003a36:	e7db      	b.n	80039f0 <Travel_turn_2+0x48>
+ 8003a36:	e7db      	b.n	80039f0 <Travel_turn+0x48>
 			rigth = 0; //speed of rigth engine
  8003a38:	2300      	movs	r3, #0
- 8003a3a:	4a12      	ldr	r2, [pc, #72]	; (8003a84 <Travel_turn_2+0xdc>)
+ 8003a3a:	4a12      	ldr	r2, [pc, #72]	; (8003a84 <Travel_turn+0xdc>)
  8003a3c:	6013      	str	r3, [r2, #0]
 			left = 0; //speed of left engine
- 8003a3e:	4a12      	ldr	r2, [pc, #72]	; (8003a88 <Travel_turn_2+0xe0>)
+ 8003a3e:	4a12      	ldr	r2, [pc, #72]	; (8003a88 <Travel_turn+0xe0>)
  8003a40:	6013      	str	r3, [r2, #0]
 			set_speed(htim2,rigth,left);
  8003a42:	2200      	movs	r2, #0
@@ -9298,7 +9298,7 @@ int Travel_turn_2(TIM_HandleTypeDef *htim2,int uhel,int power){
 			distance=distance_traveled(1);
  8003a4c:	2001      	movs	r0, #1
  8003a4e:	f7ff ff21 	bl	8003894 <distance_traveled>
- 8003a52:	4c13      	ldr	r4, [pc, #76]	; (8003aa0 <Travel_turn_2+0xf8>)
+ 8003a52:	4c13      	ldr	r4, [pc, #76]	; (8003aa0 <Travel_turn+0xf8>)
  8003a54:	6020      	str	r0, [r4, #0]
 			reset_distance();
  8003a56:	f7ff ff13 	bl	8003880 <reset_distance>
@@ -9308,26 +9308,26 @@ int Travel_turn_2(TIM_HandleTypeDef *htim2,int uhel,int power){
  8003a5c:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
 		    rigth = 0; //speed of rigth engine
  8003a5e:	2300      	movs	r3, #0
- 8003a60:	4a08      	ldr	r2, [pc, #32]	; (8003a84 <Travel_turn_2+0xdc>)
+ 8003a60:	4a08      	ldr	r2, [pc, #32]	; (8003a84 <Travel_turn+0xdc>)
  8003a62:	6013      	str	r3, [r2, #0]
 			left = 0; //speed of left engine
- 8003a64:	4a08      	ldr	r2, [pc, #32]	; (8003a88 <Travel_turn_2+0xe0>)
+ 8003a64:	4a08      	ldr	r2, [pc, #32]	; (8003a88 <Travel_turn+0xe0>)
  8003a66:	6013      	str	r3, [r2, #0]
 			set_speed(htim2,rigth,left);
  8003a68:	2200      	movs	r2, #0
  8003a6a:	2100      	movs	r1, #0
  8003a6c:	0020      	movs	r0, r4
  8003a6e:	f7ff fdf5 	bl	800365c <set_speed>
-			distance=distance_traveled(1);
+			distance=distance_traveled((int)1);
  8003a72:	2001      	movs	r0, #1
  8003a74:	f7ff ff0e 	bl	8003894 <distance_traveled>
- 8003a78:	4c09      	ldr	r4, [pc, #36]	; (8003aa0 <Travel_turn_2+0xf8>)
+ 8003a78:	4c09      	ldr	r4, [pc, #36]	; (8003aa0 <Travel_turn+0xf8>)
  8003a7a:	6020      	str	r0, [r4, #0]
 			reset_distance();
  8003a7c:	f7ff ff00 	bl	8003880 <reset_distance>
 			return distance;
  8003a80:	6820      	ldr	r0, [r4, #0]
- 8003a82:	e7eb      	b.n	8003a5c <Travel_turn_2+0xb4>
+ 8003a82:	e7eb      	b.n	8003a5c <Travel_turn+0xb4>
  8003a84:	200002c8 	.word	0x200002c8
  8003a88:	200002c4 	.word	0x200002c4
  8003a8c:	200002bc 	.word	0x200002bc

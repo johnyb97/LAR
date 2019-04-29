@@ -5,6 +5,7 @@
  *      Author: janbe
  */
 #include "motorcontrol.h"
+#include "Ultrasound.h"
 #include "main.h"
 
 uint8_t stop;
@@ -13,7 +14,6 @@ int logic;
 int rigth; //speed of rigth engine
 int left; //speed of left engine
 int distance;
-extern dist;
 int maxdistance;
 int currentdistance;
 
@@ -30,7 +30,7 @@ void posun_cerpadla(TIM_HandleTypeDef *htim,uint8_t smer)
 void PID_podle_ultrazvuku(TIM_HandleTypeDef *htim)
 {
 	if (timer<HAL_GetTick()){
-			error = (etalon-dist);
+			error = (etalon-get_ultrasound1_dist());
 			Integral2 = Integral2 + error;
 			Derivate2 = error-LastError2;
 			Turn = (Kp2 * error+Ki2*Integral2 + Kd2*Derivate2)/100;
@@ -113,7 +113,7 @@ void PID_regularor(TIM_HandleTypeDef *htim){
 	}
 }
 
-int Travel_rovne_2(TIM_HandleTypeDef *htim,int vzdalenost,int power){
+int Travel_rovne(TIM_HandleTypeDef *htim,int vzdalenost,int power){
 	  rigth = power; //speed of rigth engine
 	  left = power; //speed of left engine
 	  set_speed(htim,rigth,left);
@@ -169,9 +169,14 @@ int Travel_rovne_2(TIM_HandleTypeDef *htim,int vzdalenost,int power){
 }
 
 
-int Travel_turn_2(TIM_HandleTypeDef *htim2,int uhel,int power){
-	rigth = power; //speed of rigth engine
-	left =-power; //speed of left engine
+int Travel_turn(TIM_HandleTypeDef *htim2,int uhel,int power){
+	if (uhel>=0){
+		rigth = power; //speed of rigth engine
+		left =-power; //speed of left engine
+	}else{
+		rigth = -power; //speed of rigth engine
+		left = power; //speed of left engine
+	}
 	set_speed(htim2,rigth,left);
 	maxdistance = 300*uhel/90;
 	while (1)
@@ -206,7 +211,7 @@ int Travel_turn_2(TIM_HandleTypeDef *htim2,int uhel,int power){
 		    rigth = 0; //speed of rigth engine
 			left = 0; //speed of left engine
 			set_speed(htim2,rigth,left);
-			distance=distance_traveled(1);
+			distance=distance_traveled((int)1);
 			reset_distance();
 			return distance;
 		}
@@ -256,7 +261,7 @@ void reset_distance(void){
 	distance1 = 0;
 	distance2 = 0;
 }
-int distance_traveled(wheel){
+int distance_traveled(int wheel){
 	if (wheel ==1){
 		return distance1;
 	}

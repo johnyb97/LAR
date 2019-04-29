@@ -139,9 +139,9 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  Travel_rovne_2(&htim3,1,1000);
+	  Travel_rovne(&htim3,1,1000);
 	  HAL_Delay(500);
-	  Travel_turn_2(&htim3,90,400);
+	  Travel_turn(&htim3,90,400);
 	  HAL_Delay(500);
 	/* USER CODE BEGIN 3 */
 

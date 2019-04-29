@@ -28,9 +28,9 @@ void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
    */
 }
 void init_ultrasound(TIM_HandleTypeDef *htim){
-    dist1=2000;
+    dist1 = 2000;
     logic1 = 0;
-    dist2=2000;
+    dist2 = 2000;
     logic2 = 0;
     HAL_TIM_PWM_Init(htim);
     HAL_TIM_PWM_Start(htim,TIM_CHANNEL_1);

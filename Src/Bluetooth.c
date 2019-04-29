@@ -6,6 +6,7 @@
  */
 
 #include "bluetooth.h"
+uint8_t bluetooth_memory;
 
 uint8_t get_bluetooth(void){
 	return bluetooth_memory;

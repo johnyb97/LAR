@@ -57,7 +57,8 @@ int distance_traveled(int wheel);
 void reset_distance(void);
 void start_encoder();
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim);
-int Travel_rovne_2(TIM_HandleTypeDef *htim,int vzdalenost,int power);
+int Travel_rovne(TIM_HandleTypeDef *htim,int vzdalenost,int power);
+int Travel_turn(TIM_HandleTypeDef *htim2,int uhel,int power);
 int saturation(int variable);
 
 #endif /* MOTORCONTROL_H_ */
