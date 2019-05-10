@@ -80,6 +80,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define cista_a_duveriva_Pin GPIO_PIN_2
+#define cista_a_duveriva_GPIO_Port GPIOC
 #define uvnitr_odpociva_Pin GPIO_PIN_3
 #define uvnitr_odpociva_GPIO_Port GPIOC
 #define PWMmotorRight1_Pin GPIO_PIN_6

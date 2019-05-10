@@ -1,3 +1,4 @@
-Bluetooth.c:11:9:get_bluetooth	0	static
-Bluetooth.c:14:6:start_bluetooth	16	static
-Bluetooth.c:20:10:interupt_bluetooth_return	0	static
+Bluetooth.c:13:9:get_bluetooth	0	static
+Bluetooth.c:18:6:send_bluetooth	8	static
+Bluetooth.c:22:6:start_bluetooth	16	static
+Bluetooth.c:29:10:interupt_bluetooth_return	0	static

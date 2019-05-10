@@ -9,6 +9,7 @@
 #define BLUETOOTH_H_
 #include "main.h"
 uint8_t get_bluetooth(void);
+void send_bluetooth(uint8_t *word);
 void start_bluetooth(UART_HandleTypeDef *huart);
 uint8_t* interupt_bluetooth_return(void);
 
