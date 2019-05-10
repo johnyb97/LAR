@@ -80,6 +80,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define uvnitr_odpociva_Pin GPIO_PIN_3
+#define uvnitr_odpociva_GPIO_Port GPIOC
 #define PWMmotorRight1_Pin GPIO_PIN_6
 #define PWMmotorRight1_GPIO_Port GPIOA
 #define PWMmotorRight2_Pin GPIO_PIN_7
@@ -94,6 +96,9 @@ void Error_Handler(void);
 #define Mikrofon3_Pin GPIO_PIN_11
 #define Mikrofon3_GPIO_Port GPIOB
 #define Mikrofon3_EXTI_IRQn EXTI4_15_IRQn
+#define EncoderLeft2_Pin GPIO_PIN_12
+#define EncoderLeft2_GPIO_Port GPIOB
+#define EncoderLeft2_EXTI_IRQn EXTI4_15_IRQn
 #define EncoderRigth2_Pin GPIO_PIN_13
 #define EncoderRigth2_GPIO_Port GPIOB
 #define EncoderRigth2_EXTI_IRQn EXTI4_15_IRQn
@@ -103,6 +108,8 @@ void Error_Handler(void);
 #define EncoderRigth1_Pin GPIO_PIN_15
 #define EncoderRigth1_GPIO_Port GPIOB
 #define EncoderRigth1_EXTI_IRQn EXTI4_15_IRQn
+#define Ultrasound_PWM_Pin GPIO_PIN_6
+#define Ultrasound_PWM_GPIO_Port GPIOC
 #define Mikrofon1_Pin GPIO_PIN_7
 #define Mikrofon1_GPIO_Port GPIOC
 #define Mikrofon1_EXTI_IRQn EXTI4_15_IRQn
@@ -114,6 +121,8 @@ void Error_Handler(void);
 #define Utrasound_sens1_Pin GPIO_PIN_8
 #define Utrasound_sens1_GPIO_Port GPIOA
 #define Utrasound_sens1_EXTI_IRQn EXTI4_15_IRQn
+#define Tvoje_voda_ziva_Pin GPIO_PIN_12
+#define Tvoje_voda_ziva_GPIO_Port GPIOA
 #define STEP4_Pin GPIO_PIN_6
 #define STEP4_GPIO_Port GPIOB
 #define STEP1_Pin GPIO_PIN_7

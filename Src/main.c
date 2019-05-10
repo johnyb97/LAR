@@ -136,14 +136,18 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  GPIO_PinState je_voda;
   while (1)
   {
+	  je_voda = HAL_GPIO_ReadPin(Tvoje_voda_ziva_GPIO_Port,Tvoje_voda_ziva_Pin);
+	  if (je_voda == GPIO_PIN_SET){
+		  HAL_GPIO_WritePin(uvnitr_odpociva_GPIO_Port,uvnitr_odpociva_Pin,GPIO_PIN_RESET);
+	  }else{
+		  HAL_GPIO_WritePin(uvnitr_odpociva_GPIO_Port,uvnitr_odpociva_Pin,GPIO_PIN_SET);
+	  }
     /* USER CODE END WHILE */
-	  Travel_rovne(&htim3,1,1000);
-	  HAL_Delay(500);
-	  Travel_turn(&htim3,90,400);
-	  HAL_Delay(500);
-	/* USER CODE BEGIN 3 */
+
+    /* USER CODE BEGIN 3 */
 
   }
   /* USER CODE END 3 */
@@ -399,7 +403,7 @@ static void MX_TIM22_Init(void)
     Error_Handler();
   }
   sConfigOC.OCMode = TIM_OCMODE_PWM1;
-  sConfigOC.Pulse = 15;
+  sConfigOC.Pulse = 10;
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
   if (HAL_TIM_PWM_ConfigChannel(&htim22, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
@@ -482,10 +486,17 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(cerpadlo_interni_GPIO_Port, cerpadlo_interni_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, uvnitr_odpociva_Pin|cerpadlo_interni_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, STEP4_Pin|STEP1_Pin|STEP3_Pin|STEP2_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pins : uvnitr_odpociva_Pin cerpadlo_interni_Pin */
+  GPIO_InitStruct.Pin = uvnitr_odpociva_Pin|cerpadlo_interni_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pin : Utrasound_sens2_Pin */
   GPIO_InitStruct.Pin = Utrasound_sens2_Pin;
@@ -493,9 +504,9 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(Utrasound_sens2_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : Mikrofon3_Pin PB12 EncoderRigth2_Pin EncoderLeft1_Pin 
+  /*Configure GPIO pins : Mikrofon3_Pin EncoderLeft2_Pin EncoderRigth2_Pin EncoderLeft1_Pin 
                            EncoderRigth1_Pin */
-  GPIO_InitStruct.Pin = Mikrofon3_Pin|GPIO_PIN_12|EncoderRigth2_Pin|EncoderLeft1_Pin 
+  GPIO_InitStruct.Pin = Mikrofon3_Pin|EncoderLeft2_Pin|EncoderRigth2_Pin|EncoderLeft1_Pin 
                           |EncoderRigth1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
@@ -507,18 +518,17 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : cerpadlo_interni_Pin */
-  GPIO_InitStruct.Pin = cerpadlo_interni_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(cerpadlo_interni_GPIO_Port, &GPIO_InitStruct);
-
   /*Configure GPIO pin : Utrasound_sens1_Pin */
   GPIO_InitStruct.Pin = Utrasound_sens1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(Utrasound_sens1_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : Tvoje_voda_ziva_Pin */
+  GPIO_InitStruct.Pin = Tvoje_voda_ziva_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(Tvoje_voda_ziva_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : STEP4_Pin STEP1_Pin STEP3_Pin STEP2_Pin */
   GPIO_InitStruct.Pin = STEP4_Pin|STEP1_Pin|STEP3_Pin|STEP2_Pin;
